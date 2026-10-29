@@ -1,178 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Extreme Driving School</title>
-  <meta name="description" content="Informational website for an extreme driving school: safety programs, vehicle fleet and online registration for track sessions.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+  <meta name="description" content="RoboKids is a robotics school for children from 6 years old: Lego modeling, Arduino and Python. Sign up for a free trial lesson.">
+  <title>RoboKids — Children's Robotics School</title>
+  <link rel="icon" href="images/logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
 </head>
-<body id="top">
+<body>
 
-  <!-- 1. HEADER / NAV: flex row on desktop, burger menu (CSS-only checkbox) on phones -->
   <header class="site-header">
-    <a class="logo" href="#top" aria-label="Extreme Drive, back to top">Extreme <span>Drive</span></a>
+    <a class="brand" href="#top" aria-label="RoboKids — home">
+      <img src="images/logo.svg" alt="" width="48" height="48">
+      <span>RoboKids</span>
+    </a>
 
-    <input class="nav-toggle" type="checkbox" id="nav-toggle" aria-label="Open menu">
-    <label class="burger" for="nav-toggle" aria-hidden="true">
+    <a class="phone" href="tel:+77000000000" aria-label="Call us: +7 700 000 00 00">
+      <span aria-hidden="true">&#9742;</span>
+      <span class="phone-number">+7 700 000 00 00</span>
+    </a>
+
+    <input type="checkbox" id="nav-toggle" class="visually-hidden" aria-label="Toggle navigation menu">
+    <label for="nav-toggle" class="burger" aria-hidden="true">
       <span></span><span></span><span></span>
     </label>
 
-    <nav class="site-nav" aria-label="Main">
+    <nav class="site-nav" aria-label="Main navigation">
       <ul>
         <li><a href="#programs">Programs</a></li>
-        <li><a href="#fleet">Fleet</a></li>
-        <li><a href="#instructors">Instructors</a></li>
+        <li><a href="#prices">Prices</a></li>
+        <li><a href="#signup">Contacts</a></li>
       </ul>
     </nav>
-
-    <p class="header-cta">
-      <a class="phone" href="tel:+77271234567">+7 (727) 123-45-67</a>
-      <a class="btn" href="#signup">Sign Up for the Race Track</a>
-    </p>
   </header>
 
-  <main>
-    <!-- 2. HERO -->
+  <main id="top">
+
     <section class="hero" aria-labelledby="hero-title">
-      <p class="eyebrow">High-performance driving school</p>
-      <h1 id="hero-title">Learn to Fully Control the Car in Any Conditions</h1>
-      <p class="hero__lead">Closed-track programs with certified instructors: skid control, winter drift and sports track driving.</p>
-      <a class="btn btn--lg" href="#programs">Choose a Course</a>
+      <figure class="hero-art">
+        <img src="images/robot.svg" alt="Friendly blue robot holding a golden gear" width="480" height="480">
+      </figure>
+      <article class="hero-copy">
+        <p class="eyebrow">Robotics school for ages 6–14</p>
+        <h1 id="hero-title">Raising Engineers from 6 Years Old</h1>
+        <p class="lead">Small groups, real parts and a new project every month. Kids build, program and take home what they create.</p>
+        <a class="button button-cta" href="#signup">Sign Up for a Trial Lesson</a>
+      </article>
     </section>
 
-    <!-- 3. GRID SECTION: 3 columns on desktop, 1 column on phones -->
-    <section class="programs" id="programs" aria-labelledby="programs-title">
+    <section id="programs" class="grid-section" aria-labelledby="programs-title">
       <header class="section-head">
-        <p class="eyebrow">Training programs</p>
-        <h2 id="programs-title">Choose your track</h2>
-        <p>Every program is practical driving on a closed track. Hours below are behind the wheel.</p>
+        <h2 id="programs-title">Programs by age</h2>
+        <p>Three directions that grow with your child. Every group has up to 8 students.</p>
       </header>
 
-      <div class="cards">
-        <article class="card">
-          <p class="level">Beginner</p>
-          <h3>Defensive Driving Basics</h3>
-          <p>Emergency braking, skid control and hazard anticipation on a closed track.</p>
-          <p class="hours"><strong>12</strong> hours of practical driving</p>
-        </article>
+      <article class="card">
+        <img src="images/icon-lego.svg" alt="" width="64" height="64">
+        <p class="badge">Ages 6–8</p>
+        <h3>Lego Modeling</h3>
+        <p>Gears, levers and motors: children assemble moving models and learn how mechanisms work.</p>
+        <p class="schedule">Mon &amp; Wed · 17:00</p>
+      </article>
 
-        <article class="card">
-          <p class="level">Intermediate</p>
-          <h3>Winter Drift</h3>
-          <p>Controlled slides on ice and snow: throttle, weight transfer and countersteer.</p>
-          <p class="hours"><strong>16</strong> hours of practical driving</p>
-        </article>
+      <article class="card">
+        <img src="images/icon-arduino.svg" alt="" width="64" height="64">
+        <p class="badge">Ages 9–11</p>
+        <h3>Arduino Microcontrollers</h3>
+        <p>Sensors, LEDs and servos: first electronic circuits and programs that react to the real world.</p>
+        <p class="schedule">Tue &amp; Thu · 17:30</p>
+      </article>
 
-        <article class="card">
-          <p class="level">Advanced</p>
-          <h3>Sports Track</h3>
-          <p>Racing line, braking points and lap-time work in a high-performance car.</p>
-          <p class="hours"><strong>20</strong> hours of practical driving</p>
-        </article>
-      </div>
+      <article class="card">
+        <img src="images/icon-python.svg" alt="" width="64" height="64">
+        <p class="badge">Ages 12–14</p>
+        <h3>Python</h3>
+        <p>Variables, loops and functions through games and robot control: a solid start in programming.</p>
+        <p class="schedule">Sat · 11:00</p>
+      </article>
     </section>
 
-    <!-- 4. FEEDBACK FORM: validation with HTML attributes + CSS (:valid / :invalid) -->
-    <section class="signup" id="signup" aria-labelledby="signup-title">
-      <header class="signup__intro">
-        <p class="eyebrow">Online registration</p>
-        <h2 id="signup-title">Sign Up for the Race Track</h2>
-        <p>Leave your details and we will confirm your track session within one business day.</p>
-        <p class="signup__contacts">
-          <a href="tel:+77271234567">+7 (727) 123-45-67</a>
-          <a href="mailto:info@extremedrive.kz">info@extremedrive.kz</a>
-        </p>
+    <section id="prices" class="grid-section prices" aria-labelledby="prices-title">
+      <header class="section-head">
+        <h2 id="prices-title">Prices</h2>
+        <p>The first trial lesson is free. No hidden fees, equipment is included.</p>
       </header>
 
-      <form class="form" action="#" method="post">
-        <p class="field">
-          <label for="full-name">Driver’s Full Name</label>
-          <input id="full-name" name="full-name" type="text" placeholder="Full name" autocomplete="name" minlength="2" required>
-          <span class="hint">Enter your first and last name.</span>
-        </p>
+      <article class="card">
+        <h3>Trial lesson</h3>
+        <p class="price">Free</p>
+        <p>60 minutes, meet the teacher and build your first model.</p>
+      </article>
 
-        <p class="field">
-          <label for="experience">Driving Experience (in years)</label>
-          <input id="experience" name="experience" type="number" placeholder="e.g. 3" min="0" max="60" step="1" inputmode="numeric" required>
-          <span class="hint">Enter a whole number from 0 to 60.</span>
-        </p>
+      <article class="card card-featured">
+        <h3>Monthly</h3>
+        <p class="price">24 000 ₸</p>
+        <p>8 lessons per month, all materials and kits included.</p>
+      </article>
 
-        <p class="field">
-          <label for="phone">Phone Number</label>
-          <input id="phone" name="phone" type="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel" pattern="\+?[0-9 \(\)\-]{10,20}" title="Use digits, spaces, brackets and dashes, for example +7 (727) 123-45-67" required>
-          <span class="hint">Use a phone like +7 (727) 123-45-67.</span>
-        </p>
+      <article class="card">
+        <h3>3 months</h3>
+        <p class="price">64 000 ₸</p>
+        <p>24 lessons and a certificate of completion.</p>
+      </article>
+    </section>
 
-        <p class="field">
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" placeholder="name@example.com" autocomplete="email" required>
+    <section id="signup" class="form-section" aria-labelledby="signup-title">
+      <header class="section-head">
+        <h2 id="signup-title">Sign up for a trial lesson</h2>
+        <p>Leave your contacts and we will call you within one working day.</p>
+      </header>
+
+      <form class="signup-form" action="#thanks" method="get">
+        <label class="field">
+          <span class="label-text">Applicant's Name</span>
+          <input type="text" name="parent-name" placeholder="Parent's full name" autocomplete="name" required minlength="2" maxlength="60">
+          <span class="hint">Please enter at least 2 characters.</span>
+        </label>
+
+        <label class="field">
+          <span class="label-text">Phone</span>
+          <input type="tel" name="phone" placeholder="+7 700 000 00 00" autocomplete="tel" required pattern="\+?[0-9\s\-()]{10,18}">
+          <span class="hint">Enter a valid phone number, e.g. +7 700 000 00 00.</span>
+        </label>
+
+        <label class="field">
+          <span class="label-text">Email (optional)</span>
+          <input type="email" name="email" placeholder="name@example.com" autocomplete="email">
           <span class="hint">Enter a valid email address.</span>
-        </p>
+        </label>
 
-        <fieldset class="vehicle">
-          <legend>Vehicle</legend>
-          <input type="radio" id="car-own" name="vehicle" value="own" checked required>
-          <label for="car-own">Own Car</label>
-          <input type="radio" id="car-school" name="vehicle" value="school">
-          <label for="car-school">School Car</label>
-        </fieldset>
+        <label class="field">
+          <span class="label-text">Child's Age</span>
+          <input type="number" name="child-age" placeholder="6–14" inputmode="numeric" min="6" max="14" step="1" required>
+          <span class="hint">We accept children from 6 to 14 years old.</span>
+        </label>
 
-        <button class="btn btn--lg" type="submit">Send Application</button>
-        <p class="form__note">All fields are required.</p>
+        <label class="field field-wide">
+          <span class="label-text">Course</span>
+          <select name="course" required>
+            <option value="" selected disabled>Choose a course</option>
+            <option value="lego">Lego Modeling (6–8)</option>
+            <option value="arduino">Arduino Microcontrollers (9–11)</option>
+            <option value="python">Python (12–14)</option>
+          </select>
+          <span class="hint">Please choose a course.</span>
+        </label>
+
+        <label class="consent field-wide">
+          <input type="checkbox" name="consent" required>
+          <span>I agree to the processing of personal data</span>
+        </label>
+
+        <button class="button button-cta field-wide" type="submit">Sign Up for a Trial Lesson</button>
       </form>
+
+      <article id="thanks" class="thanks" role="status">
+        <h3>Thank you!</h3>
+        <p>Your application has been received. We will contact you soon.</p>
+      </article>
     </section>
+
   </main>
 
-  <!-- 5. FOOTER: dark carbon-fiber by default, theme selector inverts the palette (CSS only) -->
   <footer class="site-footer">
-    <section class="footer-brand" aria-labelledby="brand-title">
-      <h2 id="brand-title" class="sr-only">Extreme Driving School</h2>
-      <a class="logo" href="#top" aria-label="Extreme Drive, back to top">Extreme <span>Drive</span></a>
-      <p>High-performance driving school. Safety programs, sports fleet and track sessions.</p>
+    <section class="footer-about" aria-labelledby="footer-title">
+      <h2 id="footer-title">RoboKids</h2>
       <address>
-        <a href="tel:+77271234567">+7 (727) 123-45-67</a>
-        <a href="mailto:info@extremedrive.kz">info@extremedrive.kz</a>
+        Satpayev St. 22, Almaty<br>
+        Kazakhstan, 050000<br>
+        <a href="tel:+77000000000">+7 700 000 00 00</a>
       </address>
+      <a class="geo-link" href="geo:43.2389,76.8897">Open location in maps app</a>
     </section>
 
-    <nav class="footer-links" aria-labelledby="safety-title">
-      <h2 id="safety-title">Safety regulations</h2>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <h2>Navigation</h2>
       <ul>
-        <li><a href="#signup">Helmet and gear rules</a></li>
-        <li><a href="#signup">Track briefing</a></li>
-        <li><a href="#signup">Emergency procedures</a></li>
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#prices">Prices</a></li>
+        <li><a href="#signup">Sign up</a></li>
       </ul>
     </nav>
 
-    <nav class="footer-links" aria-labelledby="fed-title">
-      <h2 id="fed-title">Motorsport federations</h2>
+    <nav class="footer-nav" aria-label="Messengers">
+      <h2>Messengers</h2>
       <ul>
-        <li><a href="https://www.fia.com" target="_blank" rel="noopener">FIA</a></li>
-        <li><a href="https://www.fia.com/members/region/asia-6/country/KZ" target="_blank" rel="noopener">AFRK — Automotorsport Federation of Kazakhstan</a></li>
-        <li><a href="https://www.fia.com/members/region/asia-6/country/KZ" target="_blank" rel="noopener">Off Road Kazakhstan</a></li>
+        <li><a href="https://wa.me/77000000000" rel="noopener">WhatsApp</a></li>
+        <li><a href="https://t.me/robokids_example" rel="noopener">Telegram</a></li>
+        <li><a href="https://instagram.com/robokids_example" rel="noopener">Instagram</a></li>
       </ul>
     </nav>
 
-    <fieldset class="theme">
-      <legend>Theme</legend>
-      <span class="toggle">
-        <input type="radio" name="theme" id="theme-dark" checked>
-        <label for="theme-dark">Dark</label>
-        <input type="radio" name="theme" id="theme-light">
-        <label for="theme-light">Light</label>
-      </span>
-    </fieldset>
+    <figure class="footer-map">
+      <iframe title="Map: RoboKids school location in Almaty" loading="lazy"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=76.8797%2C43.2339%2C76.8997%2C43.2439&amp;layer=mapnik&amp;marker=43.2389%2C76.8897"></iframe>
+    </figure>
 
-    <section class="legal" aria-labelledby="legal-title">
-      <h2 id="legal-title" class="sr-only">Legal information</h2>
-      <p>© 2026 Extreme Driving School. All rights reserved.</p>
-      <p>Track sessions are held at the participant’s own risk. A helmet is mandatory.</p>
+    <section class="footer-legal" aria-label="Legal information">
+      <p><small>&copy; 2026 RoboKids LLP. All rights reserved. This is a demo landing page created for a study project; prices, address and phone number are placeholders.</small></p>
+      <label class="theme-switch">
+        <input type="checkbox" id="theme-toggle" role="switch">
+        <span class="track" aria-hidden="true"></span>
+        <span class="switch-label">Dark mode</span>
+      </label>
     </section>
   </footer>
+
+  <a class="sticky-cta button button-cta" href="#signup">Sign Up for a Trial Lesson</a>
 
 </body>
 </html>

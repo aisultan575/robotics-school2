@@ -1,786 +1,742 @@
 /* ==========================================================
-   Extreme Driving School — style.css
-   Mobile-first: base styles are for phones (320 to 480),
-   @media (min-width: 1024px) upgrades the layout for desktop.
-   No px for widths, margins or paddings: rem, em, %, vh only.
+   RoboKids landing page — mobile-first, relative units only
    ========================================================== */
 
-/* ---------- Design tokens (dark theme by default) ---------- */
-:root {
-  --bg: #111214;
-  --sec: #151618;
-  --card: #1c1d20;
-  --text: #f2f2f2;
-  --muted: #a9acb2;
-  --accent: #e10600;
-  --border: #2e3035;
-  --foot: #0b0b0d;
-  --weave: #17181b;
-  --input: #141518;
-  --error: #ff6b63;
-  --ok: #3ccf82;
-  --pad: 1rem;
-  --gutter: max(var(--pad), calc((100% - 80rem) / 2));
-  --head: Oswald, "Arial Narrow", Impact, sans-serif;
-  --body: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  color-scheme: dark;
-}
-
-/* Theme selector in the footer (radio buttons, no JavaScript) */
-:root:has(#theme-light:checked) {
-  --bg: #f4f4f5;
-  --sec: #ededef;
-  --card: #ffffff;
-  --text: #16171a;
-  --muted: #52565c;
-  --accent: #c20500;
-  --border: #d6d8dc;
-  --foot: #e8e8eb;
-  --weave: #dddde1;
-  --input: #f4f4f5;
-  --error: #b3261e;
-  --ok: #1a7f4b;
-  color-scheme: light;
-}
-
-/* ---------- Base ---------- */
-*,
-*::before,
-*::after {
+/* ---------- Reset ---------- */
+* {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---------- Design tokens (Light theme by default) ---------- */
+:root {
+  --bg: #f5f7ff;
+  --surface: #ffffff;
+  --surface-alt: #e9edff;
+  --text: #14213d;
+  --muted: #4a5578;
+  --primary: #2b4bdc;
+  --on-primary: #ffffff;
+  --cta: #ff7a1a;
+  --on-cta: #14213d;
+  --border: #c9d1f5;
+  --error: #b3261e;
+  --success: #1b7a43;
+  --focus: #14213d;
+
+  --radius: 1.5rem;
+  --radius-sm: 1rem;
+  --gap: 1.25rem;
+  /* side padding that also centers content up to 75rem wide */
+  --gutter: max(1rem, calc((100% - 75rem) / 2));
 }
 
 html {
+  font-size: 100%;
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
-  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  margin: 0;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  min-height: 100vh;
-  overflow-x: clip;
-  background: var(--bg);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
   color: var(--text);
-  font-family: var(--body);
-  font-size: 1rem;
-  line-height: 1.5;
+  background: var(--bg);
+  /* room for the sticky mobile CTA */
+  padding-bottom: 5rem;
+  overflow-wrap: break-word;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+ul {
+  list-style: none;
 }
 
 a {
   color: inherit;
 }
 
-:focus-visible {
-  outline: 0.125rem solid var(--accent);
-  outline-offset: 0.1875rem;
+h1, h2, h3 {
+  line-height: 1.15;
+  text-wrap: balance;
 }
 
-.sr-only {
+:focus-visible {
+  outline: 0.1875rem solid var(--focus);
+  outline-offset: 0.2rem;
+}
+
+.visually-hidden {
   position: absolute;
-  inline-size: 0.0625rem;
-  block-size: 0.0625rem;
+  width: 0.0625rem;
+  height: 0.0625rem;
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
 }
 
-.eyebrow {
-  margin: 0;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
-h1,
-h2,
-h3 {
-  margin: 0;
-  font-family: var(--head);
-  line-height: 1.1;
-}
-
-h2 {
-  font-size: 2rem;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-/* ---------- Buttons (large tap area for the thumb zone) ---------- */
-.btn {
+/* ---------- Buttons ---------- */
+.button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-block-size: 3rem;
-  padding: 0.75rem 1.5rem;
-  border: 0;
-  border-radius: 0.25rem;
-  background: var(--accent);
-  color: #fff;
-  font-family: var(--head);
-  font-size: 0.9375rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  min-height: 3.25rem;
+  padding: 0.75rem 1.75rem;
+  font: inherit;
+  font-weight: 700;
   text-align: center;
   text-decoration: none;
+  border: 0;
+  border-radius: 2rem;
   cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease;
 }
 
-.btn:hover {
-  filter: brightness(1.12);
+.button:hover {
+  filter: brightness(1.06);
+  transform: translateY(-0.125rem);
 }
 
-.btn--lg {
-  min-block-size: 3.5rem;
-  padding: 1.125rem 2.25rem;
-  font-size: 1.125rem;
+.button-cta {
+  background: var(--cta);
+  color: var(--on-cta);
 }
 
-/* ---------- 1. Header / Nav (phone: burger menu) ---------- */
+/* ---------- Header / Nav (mobile: burger) ---------- */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 10;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
   align-items: center;
-  justify-content: space-between;
-  padding: 0.875rem var(--gutter);
-  background: var(--bg);
+  gap: 0.5rem 0.75rem;
+  padding: 0.5rem 1rem;
+  background: var(--surface);
   border-bottom: 0.0625rem solid var(--border);
 }
 
-.logo {
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  text-decoration: none;
+  color: var(--primary);
+}
+
+.brand img {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.phone {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  font-family: var(--head);
-  font-size: 1.25rem;
+  gap: 0.4rem;
+  min-height: 2.75rem;
+  padding: 0 0.9rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
-  line-height: 1;
-  text-transform: uppercase;
   text-decoration: none;
-  color: var(--text);
+  color: var(--on-primary);
+  background: var(--primary);
+  border-radius: 1.5rem;
 }
 
-.logo::before {
-  content: "";
-  inline-size: 0.375rem;
-  block-size: 1.25em;
-  border-radius: 0.0625rem;
-  background: var(--accent);
-}
-
-.logo span {
-  color: var(--accent);
-  margin-inline-start: -0.25rem;
-}
-
-.nav-toggle {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
+/* phone number text is hidden on very narrow screens, icon stays */
+.phone-number {
+  display: none;
 }
 
 .burger {
   display: grid;
-  gap: 0.3125rem;
-  padding: 0.8125rem 0.625rem;
+  gap: 0.3rem;
+  align-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0.7rem;
   cursor: pointer;
+  background: var(--surface-alt);
+  border-radius: 1rem;
 }
 
 .burger span {
   display: block;
-  inline-size: 1.5rem;
-  block-size: 0.1875rem;
-  border-radius: 0.125rem;
+  height: 0.2rem;
   background: var(--text);
+  border-radius: 0.2rem;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-.nav-toggle:focus-visible + .burger {
-  outline: 0.125rem solid var(--accent);
-  outline-offset: 0.125rem;
+#nav-toggle:focus-visible + .burger {
+  outline: 0.1875rem solid var(--focus);
+  outline-offset: 0.2rem;
 }
 
-/* the menu is hidden until the burger checkbox is checked */
-.site-nav,
-.header-cta {
+#nav-toggle:checked + .burger span:nth-child(1) {
+  transform: translateY(0.5rem) rotate(45deg);
+}
+
+#nav-toggle:checked + .burger span:nth-child(2) {
+  opacity: 0;
+}
+
+#nav-toggle:checked + .burger span:nth-child(3) {
+  transform: translateY(-0.5rem) rotate(-45deg);
+}
+
+.site-nav {
+  grid-column: 1 / -1;
   display: none;
-  flex-basis: 100%;
 }
 
-.nav-toggle:checked ~ .site-nav {
+#nav-toggle:checked ~ .site-nav {
   display: block;
-}
-
-.nav-toggle:checked ~ .header-cta {
-  display: grid;
 }
 
 .site-nav ul {
   display: grid;
   gap: 0.25rem;
-  margin: 0;
-  padding: 1rem 0 0;
-  list-style: none;
+  padding-block: 0.5rem 0.75rem;
 }
 
 .site-nav a {
   display: block;
-  padding: 0.75rem 0;
-  font-family: var(--head);
-  font-size: 1.125rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  padding: 0.85rem 1rem;
+  font-weight: 600;
   text-decoration: none;
+  border-radius: var(--radius-sm);
 }
 
-.header-cta {
-  gap: 1rem;
-  margin: 0;
-  padding: 0.5rem 0 1rem;
+.site-nav a:hover {
+  background: var(--surface-alt);
 }
 
-.phone {
-  font-size: 0.875rem;
-  font-weight: 500;
-  text-decoration: none;
-}
-
-/* ---------- 2. Hero ---------- */
+/* ---------- Hero ---------- */
 .hero {
   display: grid;
-  align-content: end;
-  justify-items: start;
-  gap: 1rem;
-  min-height: 80vh;
-  min-height: calc(100svh - 4.5rem);
-  padding: 2rem var(--gutter);
+  gap: 1.5rem;
+  align-items: center;
+  padding: 2rem var(--gutter) 2.5rem;
+  color: #ffffff;
   background:
-    linear-gradient(90deg, rgb(0 0 0 / 0.55), rgb(0 0 0 / 0.85)),
-    url("images/hero.jpg") 75% center / cover no-repeat,
-    #0b0b0d;
-  color: #fff;
+    linear-gradient(160deg, rgb(20 33 61 / 0.55), rgb(43 75 220 / 0.35)),
+    url("images/hero-bg.webp") center / cover no-repeat,
+    #14213d;
 }
 
-.hero .eyebrow {
-  color: #ff3b30;
+.hero-art {
+  justify-self: center;
+  width: min(70%, 18rem);
+}
+
+.eyebrow {
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffd166;
 }
 
 .hero h1 {
-  font-size: 2.75rem;
-  font-weight: 700;
-  line-height: 1.14;
-  text-transform: uppercase;
+  font-size: clamp(2rem, 8vw, 3.5rem);
 }
 
-.hero__lead {
-  margin: 0;
-  max-inline-size: 35rem;
-  color: #d5d7db;
+.lead {
+  max-width: 34rem;
+  margin: 1rem 0 1.75rem;
+  font-size: 1.1rem;
+  color: #eef1ff;
 }
 
-.hero .btn {
-  justify-self: stretch;
+.hero .button {
+  width: 100%;
 }
 
-/* ---------- 3. Grid section ---------- */
-.programs,
-.signup {
+/* ---------- Grid sections (programs / prices) ---------- */
+.grid-section,
+.form-section {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)); /* mobile: 4-column grid */
+  gap: var(--gap);
   padding: 3rem var(--gutter);
 }
 
-.programs {
-  display: grid;
-  gap: 1.75rem;
-}
-
 .section-head {
-  display: grid;
-  gap: 0.75rem;
+  grid-column: 1 / -1;
+  max-width: 40rem;
 }
 
-.section-head p:last-child {
-  margin: 0;
+.section-head h2 {
+  margin-bottom: 0.5rem;
+  font-size: clamp(1.75rem, 6vw, 2.5rem);
+}
+
+.section-head p {
   color: var(--muted);
 }
 
-.cards {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
+.prices {
+  background: var(--surface-alt);
 }
 
 .card {
+  grid-column: 1 / -1; /* single column on mobile */
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  align-items: flex-start;
+  gap: 0.75rem;
   padding: 1.5rem;
-  background: var(--card);
+  background: var(--surface);
   border: 0.0625rem solid var(--border);
-  border-radius: 0.5rem;
+  border-radius: var(--radius);
 }
 
-.card p {
-  margin: 0;
-  color: var(--muted);
+.card img {
+  width: 4rem;
+  height: 4rem;
 }
 
 .card h3 {
-  font-size: 1.625rem;
-  font-weight: 600;
-  line-height: 1.2;
+  font-size: 1.4rem;
 }
 
-.card .level {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.card .hours {
-  display: flex;
-  align-items: flex-end;
-  gap: 0.625rem;
-  margin-top: auto;
-  padding-top: 1rem;
-  border-top: 0.0625rem solid var(--border);
-  font-size: 0.875rem;
-}
-
-.hours strong {
-  font-family: var(--head);
-  font-size: 3.5rem;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--accent);
-}
-
-/* ---------- 4. Feedback form ---------- */
-.signup {
-  display: grid;
-  gap: 2rem;
-  background: var(--sec);
-}
-
-.signup__intro {
-  display: grid;
-  gap: 1.25rem;
-  align-content: start;
-}
-
-.signup__intro p {
-  margin: 0;
-}
-
-.signup__intro > p:not(.eyebrow):not(.signup__contacts) {
+.card p {
   color: var(--muted);
 }
 
-.signup__contacts {
-  display: grid;
-  gap: 0.25rem;
-  font-size: 1.125rem;
-  font-weight: 500;
+.badge {
+  padding: 0.25rem 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--on-primary) !important;
+  background: var(--primary);
+  border-radius: 2rem;
 }
 
-.signup__contacts a {
-  text-decoration: none;
+.schedule {
+  margin-top: auto;
+  font-weight: 700;
+  color: var(--text) !important;
 }
 
-.form {
+.price {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary) !important;
+}
+
+.card-featured {
+  border-color: var(--primary);
+  border-width: 0.1875rem;
+}
+
+/* ---------- Feedback form (validation with pure CSS) ---------- */
+.form-section {
+  background: var(--bg);
+}
+
+.signup-form {
+  grid-column: 1 / -1;
   display: grid;
-  gap: 1.25rem;
-  padding: 1.5rem 1.25rem;
-  background: var(--card);
+  gap: var(--gap);
+  padding: 1.5rem;
+  background: var(--surface);
   border: 0.0625rem solid var(--border);
-  border-radius: 0.5rem;
+  border-radius: var(--radius);
 }
 
 .field {
   display: grid;
-  gap: 0.5rem;
-  margin: 0;
+  gap: 0.4rem;
 }
 
-.field label,
-.vehicle legend {
-  font-size: 0.875rem;
-  font-weight: 500;
+.label-text {
+  font-weight: 700;
 }
 
-.field input {
-  inline-size: 100%;
-  min-block-size: 3.25rem;
-  padding: 0 1rem;
-  background: var(--input);
-  color: var(--text);
-  border: 0.0625rem solid var(--border);
-  border-radius: 0.375rem;
+.field input,
+.field select {
+  width: 100%;
+  min-height: 3.25rem;
+  padding: 0.75rem 1rem;
   font: inherit;
+  color: var(--text);
+  background: var(--bg);
+  border: 0.125rem solid var(--border);
+  border-radius: var(--radius-sm);
 }
 
 .field input::placeholder {
   color: var(--muted);
-  opacity: 1;
+  opacity: 0.8;
 }
 
-/* validation states in pure CSS: shown only after the user typed something */
-.field input:not(:placeholder-shown):invalid {
-  border-color: var(--error);
-}
-
-.field input:not(:placeholder-shown):valid {
-  border-color: var(--ok);
+.field input:focus,
+.field select:focus {
+  outline: 0.1875rem solid var(--focus);
+  outline-offset: 0.1rem;
 }
 
 .hint {
   display: none;
-  font-size: 0.8125rem;
+  font-size: 0.9rem;
+  font-weight: 600;
   color: var(--error);
 }
 
-.field input:not(:placeholder-shown):invalid ~ .hint {
+/* Invalid state: shown only after the user interacts (modern browsers) */
+.field input:user-invalid,
+.field select:user-invalid {
+  border-color: var(--error);
+}
+
+.field:has(:user-invalid) .hint {
   display: block;
 }
 
-/* vehicle choice: radio buttons styled as a segmented control */
-.vehicle {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 0.75rem;
-  min-inline-size: 0;
-  margin: 0;
-  padding: 0;
-  border: 0;
+/* Valid state */
+.field input:user-valid,
+.field select:user-valid {
+  border-color: var(--success);
 }
 
-.vehicle legend {
-  padding: 0;
-  margin-block-end: 0.5rem;
+/* Fallback for browsers without :user-invalid support */
+@supports not selector(:user-invalid) {
+  .field input:invalid:not(:placeholder-shown) {
+    border-color: var(--error);
+  }
+
+  .field:has(input:invalid:not(:placeholder-shown)) .hint {
+    display: block;
+  }
 }
 
-.vehicle input {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.vehicle label {
-  display: grid;
-  place-items: center;
-  min-block-size: 3.25rem;
-  background: var(--input);
-  border: 0.0625rem solid var(--border);
-  border-radius: 0.375rem;
-  font-weight: 600;
+.consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
   cursor: pointer;
 }
 
-.vehicle input:checked + label {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
+.consent input {
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: 0.15rem;
+  accent-color: var(--primary);
 }
 
-.vehicle input:focus-visible + label {
-  outline: 0.125rem solid var(--accent);
-  outline-offset: 0.1875rem;
+.signup-form .button {
+  width: 100%;
 }
 
-.form__note {
-  margin: 0;
-  font-size: 0.8125rem;
-  color: var(--muted);
+/* Thank-you message shown by the :target pseudo-class (no JavaScript) */
+.thanks {
+  display: none;
+  grid-column: 1 / -1;
+  padding: 1.5rem;
+  color: var(--on-primary);
+  background: var(--success);
+  border-radius: var(--radius);
 }
 
-/* ---------- 5. Footer: dark carbon-fiber weave ---------- */
+.thanks:target {
+  display: block;
+}
+
+.signup-form:has(~ .thanks:target) {
+  display: none;
+}
+
+/* ---------- Sticky CTA (mobile Thumb Zone) ---------- */
+.sticky-cta {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 20;
+  box-shadow: 0 0.5rem 1.5rem rgb(20 33 61 / 0.35);
+}
+
+/* ---------- Footer ---------- */
 .site-footer {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2rem var(--gap);
   padding: 3rem var(--gutter) 2rem;
   color: var(--text);
-  background:
-    conic-gradient(var(--weave) 25%, transparent 0 50%, var(--weave) 0 75%, transparent 0) 0 0 / 0.75rem 0.75rem,
-    var(--foot);
+  background: var(--surface-alt);
+  border-top: 0.0625rem solid var(--border);
 }
 
-.footer-brand {
-  display: grid;
-  gap: 0.75rem;
-  align-content: start;
+.site-footer > * {
+  grid-column: 1 / -1;
 }
 
-.footer-brand p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.9375rem;
-  line-height: 1.45;
+.site-footer h2 {
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
 }
 
-.footer-brand address {
-  display: grid;
-  gap: 0.25rem;
+.site-footer address {
   font-style: normal;
-  font-size: 0.9375rem;
-  font-weight: 500;
 }
 
-.footer-brand address a {
-  text-decoration: none;
+.site-footer a {
+  display: inline-block;
+  padding-block: 0.35rem;
+  font-weight: 600;
 }
 
-.footer-links h2,
-.theme legend {
-  margin-block-end: 0.75rem;
-  padding: 0;
-  font-family: var(--head);
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.geo-link {
+  margin-top: 0.5rem;
 }
 
-.footer-links ul {
+.footer-nav ul {
   display: grid;
-  gap: 0.75rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.footer-links a {
-  color: var(--muted);
-  font-size: 0.9375rem;
-  text-decoration: none;
-}
-
-.footer-links a:hover {
-  color: var(--text);
-}
-
-/* theme selector */
-.theme {
-  min-inline-size: 0;
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-.toggle {
-  position: relative;
-  display: inline-flex;
   gap: 0.25rem;
-  padding: 0.25rem;
-  border: 0.0625rem solid var(--border);
-  border-radius: 0.5rem;
 }
 
-.toggle input {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
+.footer-map iframe {
+  display: block;
+  width: 100%;
+  height: 16rem;
+  border: 0.125rem solid var(--border);
+  border-radius: var(--radius);
 }
 
-.toggle label {
-  padding: 0.5rem 1rem;
-  border-radius: 0.3125rem;
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.5rem;
   color: var(--muted);
-  font-size: 0.875rem;
-  font-weight: 500;
+  border-top: 0.0625rem solid var(--border);
+}
+
+.footer-legal p {
+  flex: 1 1 18rem;
+}
+
+/* ---------- Light / Dark theme switch (pure CSS) ---------- */
+.theme-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 2.75rem;
+  font-weight: 700;
+  color: var(--text);
   cursor: pointer;
 }
 
-.toggle input:checked + label {
-  background: var(--accent);
-  color: #fff;
+.theme-switch input {
+  position: absolute;
+  width: 0.0625rem;
+  height: 0.0625rem;
+  opacity: 0;
 }
 
-.toggle input:focus-visible + label {
-  outline: 0.125rem solid var(--accent);
-  outline-offset: 0.125rem;
+.track {
+  position: relative;
+  flex: none;
+  width: 3.5rem;
+  height: 2rem;
+  background: var(--muted);
+  border-radius: 2rem;
+  transition: background 0.2s ease;
 }
 
-.legal {
-  display: grid;
-  gap: 0.5rem;
-  padding-top: 1.5rem;
-  border-top: 0.0625rem solid var(--border);
-  color: var(--muted);
-  font-size: 0.8125rem;
+.track::after {
+  content: "";
+  position: absolute;
+  top: 0.25rem;
+  left: 0.25rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: var(--surface);
+  border-radius: 50%;
+  transition: transform 0.2s ease;
 }
 
-.legal p {
-  margin: 0;
+.theme-switch input:checked + .track {
+  background: var(--primary);
+}
+
+.theme-switch input:checked + .track::after {
+  transform: translateX(1.5rem);
+}
+
+.theme-switch input:focus-visible + .track {
+  outline: 0.1875rem solid var(--focus);
+  outline-offset: 0.2rem;
+}
+
+/* Dark theme: every colour is a token, so inverting the tokens is enough */
+:root:has(#theme-toggle:checked) {
+  --bg: #0d1326;
+  --surface: #172040;
+  --surface-alt: #111a35;
+  --text: #eef1ff;
+  --muted: #b4bde0;
+  --primary: #9db0ff;
+  --on-primary: #0d1326;
+  --border: #2c3a6b;
+  --error: #ff9aa2;
+  --success: #7be0a2;
+  --focus: #ffd166;
+}
+
+/* ---------- Squircle corners where the browser supports them ---------- */
+@supports (corner-shape: squircle) {
+  .card,
+  .signup-form,
+  .thanks,
+  .footer-map iframe {
+    corner-shape: squircle;
+    border-radius: 2.5rem;
+  }
+
+  .button,
+  .phone,
+  .badge {
+    corner-shape: squircle;
+    border-radius: 2.5rem;
+  }
+
+  .field input,
+  .field select,
+  .burger,
+  .site-nav a {
+    corner-shape: squircle;
+    border-radius: 1.5rem;
+  }
 }
 
 /* ==========================================================
-   Desktop: from 1024px the layout switches to multi-column
+   Desktop: 12-column grid, horizontal nav (min-width: 1024px)
    ========================================================== */
 @media (min-width: 1024px) {
-  :root {
-    --pad: 2.5rem;
+  body {
+    padding-bottom: 0;
   }
 
-  h2 {
-    font-size: 3rem;
-  }
-
-  /* header: logo | links | contact + CTA */
-  .site-header {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    padding-block: 1.25rem;
-  }
-
-  .logo {
-    font-size: 1.625rem;
-  }
-
-  .burger,
-  .nav-toggle {
+  .sticky-cta {
     display: none;
   }
 
-  .site-nav,
-  .nav-toggle:checked ~ .site-nav {
+  /* Header: horizontal flex container, no burger */
+  .site-header {
+    display: flex;
+    gap: 2rem;
+    padding: 0.75rem var(--gutter);
+  }
+
+  .brand {
+    margin-right: auto;
+  }
+
+  .burger {
+    display: none;
+  }
+
+  .site-nav {
     display: block;
+    order: 2;
   }
 
   .site-nav ul {
     display: flex;
-    gap: 2.5rem;
-    padding: 0;
-  }
-
-  .site-nav a {
-    padding: 0;
-    font-size: 1rem;
-  }
-
-  .header-cta,
-  .nav-toggle:checked ~ .header-cta {
-    display: flex;
-    align-items: center;
-    justify-self: end;
-    gap: 1.5rem;
+    gap: 0.5rem;
     padding: 0;
   }
 
   .phone {
-    white-space: nowrap;
+    order: 3;
   }
 
-  /* hero */
+  .phone-number {
+    display: inline;
+  }
+
+  /* Hero: two columns, text left, art right */
   .hero {
-    gap: 1.5rem;
-    min-height: 40rem;
-    padding-block: 5rem 6rem;
-    background:
-      linear-gradient(90deg, rgb(0 0 0 / 0.85), rgb(0 0 0 / 0.1)),
-      url("images/hero.jpg") center / cover no-repeat,
-      #0b0b0d;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--gap);
+    padding-block: 5rem;
   }
 
-  .hero h1 {
-    max-inline-size: 46.25rem;
-    font-size: 4.5rem;
-    line-height: 1.11;
+  .hero-copy {
+    grid-column: 1 / span 7;
+    grid-row: 1;
   }
 
-  .hero__lead {
-    font-size: 1.125rem;
+  .hero-art {
+    grid-column: 8 / span 5;
+    grid-row: 1;
+    width: min(100%, 26rem);
   }
 
-  .hero .btn {
-    justify-self: start;
+  .hero .button {
+    width: auto;
   }
 
-  /* programs: 3 columns */
-  .programs,
-  .signup {
-    padding-block: 6rem;
-  }
-
-  .programs {
-    gap: 3rem;
-  }
-
-  .cards {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+  /* Sections: 12-column grid, cards take 4 columns each */
+  .grid-section,
+  .form-section {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    padding-block: 5rem;
   }
 
   .card {
-    padding: 2rem;
-  }
-
-  .card h3 {
-    font-size: 1.75rem;
-  }
-
-  /* form: intro on 5 columns, form on 6 columns of a 12-column grid */
-  .signup {
-    grid-template-columns: repeat(12, 1fr);
-    column-gap: 1.5rem;
-    align-items: start;
-  }
-
-  .signup__intro {
-    grid-column: 1 / span 5;
-  }
-
-  .form {
-    grid-column: 7 / span 6;
-    padding: 2rem;
-  }
-
-  /* footer: 4 + 3 + 3 + 2 columns, legal block full width */
-  .site-footer {
-    grid-template-columns: repeat(12, 1fr);
-    column-gap: 1.5rem;
-    row-gap: 3.5rem;
-    padding-block: 4.5rem 2.5rem;
-  }
-
-  .footer-brand {
     grid-column: span 4;
   }
 
-  .footer-links {
-    grid-column: span 3;
+  /* Form: two fields per row */
+  .signup-form {
+    grid-column: 1 / span 8;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 2rem;
   }
 
-  .theme {
+  .field-wide {
+    grid-column: 1 / -1;
+  }
+
+  .signup-form .button {
+    width: auto;
+    justify-self: start;
+  }
+
+  /* Footer: 12-column grid */
+  .site-footer {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .footer-about {
+    grid-column: 1 / span 4;
+  }
+
+  .footer-nav {
     grid-column: span 2;
   }
 
-  .legal {
+  .footer-map {
+    grid-column: 9 / span 4;
+    grid-row: 1 / span 1;
+  }
+
+  .footer-legal {
     grid-column: 1 / -1;
-    display: flex;
-    justify-content: space-between;
-    gap: 1.5rem;
-  }
-}
-
-@media (min-width: 1280px) {
-  :root {
-    --pad: 5rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
   }
 }
